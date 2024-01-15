@@ -1,6 +1,6 @@
 import plotly.graph_objects as go
 from dash import dcc, html
-from utils.interactive_aux_functions import build_updated_array
+from sipmarray_interactive.utils.interactive_aux_functions import build_updated_array
 
 
 # Initial SiPMarray
