@@ -7,8 +7,9 @@ external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 # Define the layout of the Dash app
 app = dash.Dash(__name__, prevent_initial_callbacks="initial_duplicate",
-                external_stylesheets=external_stylesheets)
-
+                external_stylesheets=external_stylesheets,
+                routes_pathname_prefix='/sipmarray/')
+app.title = 'SiPM array display'
 app.layout = get_layout()
 get_callbacks(app)
 
