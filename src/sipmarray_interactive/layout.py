@@ -1,6 +1,7 @@
 import plotly.graph_objects as go
 from dash import dcc, html
 from sipmarray_interactive.utils.interactive_aux_functions import build_updated_array
+import dash_bootstrap_components as dbc
 
 
 # Initial SiPMarray
@@ -18,7 +19,7 @@ text_result_string = f'Number of sensors: {n_sipms}\nActive area: {active_area:.
 text_active_corners = ''
 
 def get_layout():
-    return html.Div([
+    return dbc.Cointainer(html.Div([
     html.H1("SiPM Array Display - Alpha version"),
     html.Div([
         html.Div(
@@ -123,3 +124,4 @@ def get_layout():
     
     html.Footer("by R. Peres for the DARWIN collaboration, Jan 2024")
     ])
+    )
