@@ -24,3 +24,10 @@ def make_navbar():
         dark=True,
         fluid=True
     )
+
+def make_footer():
+    return html.Footer(html.Small([
+        'by Ricardo Peres for DARWIN/XLZD - 2024']), 
+        style={'margin-top': '1rem', 'margin-bottom': '1rem',
+               'background-color': '#95a5a6', 'color' : 'white',
+               'text-align': 'center', 'padding': '0.3rem'})
