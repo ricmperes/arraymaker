@@ -3,7 +3,7 @@ from dash import html
 import dash_bootstrap_components as dbc
 from .common import make_navbar, make_footer
 
-dash.register_page(__name__, path='/')
+dash.register_page(__name__, path='/', title='ArrayMaker')
 
 navbar = make_navbar()
 footer = make_footer()
@@ -26,13 +26,13 @@ card_sensors = dbc.Card([
                 dbc.Button("Sensor types", color="primary",
                            href="/arraymaker/sensors"),
 
-            ]), 
-            style={"height": "100%", "display": "flex", 
-                   "flexDirection": "column"}) # Col (body)
+            ]),
+            style={"height": "100%", "display": "flex",
+                   "flexDirection": "column"})  # Col (body)
     ], className="g-0",
-    style={"height": "100%", "display": "flex",
-           "flexDirection": "row"}) # Row
-], className="mb-0 border-0 shadow", style={"height": "100%"}# card
+        style={"height": "100%", "display": "flex",
+               "flexDirection": "row"})  # Row
+], className="mb-0 border-0 shadow", style={"height": "100%"}  # card
 )
 
 card_sipms = dbc.Card([
@@ -53,13 +53,13 @@ card_sipms = dbc.Card([
                 dbc.Button("SiPM ArrayMaker", color="primary",
                            href="/arraymaker/sipmarray"),
 
-            ]), 
-            style={"height": "100%", "display": "flex", 
-                   "flexDirection": "column"}) # Col (body)
+            ]),
+            style={"height": "100%", "display": "flex",
+                   "flexDirection": "column"})  # Col (body)
     ], className="g-0",
-    style={"height": "100%", "display": "flex",
-           "flexDirection": "row"}) # Row
-], className="mb-0 border-0 shadow", style={"height": "100%"}# card
+        style={"height": "100%", "display": "flex",
+               "flexDirection": "row"})  # Row
+], className="mb-0 border-0 shadow", style={"height": "100%"}  # card
 )
 
 card_pmts = dbc.Card([
@@ -67,7 +67,7 @@ card_pmts = dbc.Card([
         dbc.Col(
             dbc.CardImg(src="/arraymaker/assets/pmts_zoom_small.JPG", top=True,
                         className="card-img-top overflow-hidden",
-                        style={'height': '100%'}),
+                        style={'height': '100%', "object-fit": "cover"}),
 
         ),
         dbc.Col(
@@ -80,13 +80,13 @@ card_pmts = dbc.Card([
                 dbc.Button("PMT ArrayMaker", color="primary",
                            href="/arraymaker/pmtarray"),
 
-            ]), 
-            style={"height": "100%", "display": "flex", 
-                   "flexDirection": "column"}) # Col (body)
+            ]),
+            style={"height": "100%", "display": "flex",
+                   "flexDirection": "column"})  # Col (body)
     ], className="g-0",
-    style={"height": "100%", "display": "flex",
-           "flexDirection": "row"}) # Row
-], className="mb-0 border-0 shadow", style={"height": "100%"}# card
+        style={"height": "100%", "display": "flex",
+               "flexDirection": "row"})  # Row
+], className="mb-0 border-0 shadow", style={"height": "100%"}  # card
 )
 
 text_whatis = """Array maker is a tool to help plan photosensor arrays. It 
@@ -101,6 +101,7 @@ between sensors. The tool will then display how they would be optimally
 placed, the total coverage of the array and the number of sensors required. 
 the coordinates of the sensors can then be exported to use."""
 
+title = 'ArrayMaker'
 
 layout = dbc.Container([
     navbar,
@@ -126,13 +127,16 @@ layout = dbc.Container([
             ], style={'margin-top': '1rem', 'margin-bottom': '2rem'}),
     html.Hr(),
     html.Div([
-        dbc.Row([
-            dbc.Col(card_sensors, width=3, align='start'),
-            # dbc.Col('', width=1, align='start'),
-            dbc.Col(card_sipms, width=3, align='start'),
-            # dbc.Col('', width=1, align='start'),
-            dbc.Col(card_pmts, width=3, align='start'),
-        ], justify='center')
+        dbc.Row(
+            [
+                dbc.Col(card_sensors, width=12, sm=6,
+                        md=4, lg=3, align='start'),
+                dbc.Col(card_sipms, width=12, sm=6, md=4, lg=3, align='start'),
+                dbc.Col(card_pmts, width=12, sm=6, md=4, lg=3, align='start'),
+            ],
+            justify='center',
+            className='flex-wrap'
+        )
     ]),
     footer
 ], fluid=True)

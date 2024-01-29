@@ -22,7 +22,7 @@ text_result_string = f'Number of sensors: {n_sipms}\nActive area: {active_area:.
 text_active_corners = ''
 
 
-def get_callbacks(app):
+def get_sipmcallbacks(app):
     # Define callback to update the plot based on dropdown selection
     @app.callback(
         Output('sipm-array-plot', 'figure'),

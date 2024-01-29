@@ -30,4 +30,7 @@ def make_footer():
         'by Ricardo Peres for DARWIN/XLZD - 2024']), 
         style={'margin-top': '1rem', 'margin-bottom': '1rem',
                'background-color': '#95a5a6', 'color' : 'white',
-               'text-align': 'center', 'padding': '0.3rem'})
+               'text-align': 'center', 'padding': '0.3rem',
+        })
+            #    "position": "fixed",
+            #     "bottom": "0","width": "100%",})
