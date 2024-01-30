@@ -4,7 +4,7 @@ import dash_bootstrap_components as dbc
 from sipmarray_interactive.callbacks.merge_callbacks import get_all_callbacks
 
 # external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
-external_stylesheets = [dbc.themes.FLATLY]
+external_stylesheets = [dbc.themes.FLATLY, dbc.icons.BOOTSTRAP]
 
 # Define the layout of the Dash app
 app = dash.Dash(__name__,

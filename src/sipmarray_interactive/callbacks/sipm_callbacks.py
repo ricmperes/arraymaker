@@ -14,11 +14,10 @@ initial_margin = 10
 array = build_updated_array(initial_model, initial_diameter, initial_margin)
 
 # Initial text
-n_sipms = array.n_sipms
-active_area = array.total_sipm_active_area
-coverage = array.sipm_coverage
-text_result_string = f'Number of sensors: {n_sipms}\nActive area: {active_area:.2f} mm2\nCoverage: {coverage:.2f} %'
-
+initial_model = 'tile'
+initial_diameter = 300
+initial_margin = 10
+array = build_updated_array(initial_model, initial_diameter, initial_margin)
 text_active_corners = ''
 
 
@@ -47,7 +46,7 @@ def get_sipmcallbacks(app):
             too_many = '\nToo many SiPMs! Display not updated.'
         elif updated_array.n_sipms > 100000:
             too_many = '\nToo many SiPMs! Display not updated.'
-            raise('Waaay too many SiPMs!')
+            #raise('Waaay too many SiPMs!')
         # Plot the updated SiPMarray
         fig = go.Figure()
         fig = plot_sipm_array(updated_array, fig)
@@ -84,6 +83,18 @@ def get_sipmcallbacks(app):
             
             else:
                 raise PreventUpdate
+            
+    @app.callback(
+        Output('coverage-warning-icon', 'style'),
+        [Input('margin-input', 'value')]
+    )
+    def trigger_coverage_warning(margin_value):
+        if margin_value <= 0:
+            return {'color': 'red', 'margin-top':'0.5rem',
+                    'margin-left' : '1rem','display': 'none'}
+        else:
+            return {'color': 'red', 'margin-top':'0.5rem',
+                    'margin-left' : '1rem','display': 'inline'}
         
 # # To download a csv file
 # @app.callback(

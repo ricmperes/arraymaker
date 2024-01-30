@@ -13,7 +13,7 @@ card_sensors = dbc.Card([
         dbc.Col(
             dbc.CardImg(src="/arraymaker/assets/vuv4quad.jpg", top=True,
                         className="card-img-top overflow-hidden",
-                        style={'height': '100%'}),
+                        style={'height': '100%', "object-fit": "cover"}),
 
         ),
         dbc.Col(
@@ -40,7 +40,7 @@ card_sipms = dbc.Card([
         dbc.Col(
             dbc.CardImg(src="/arraymaker/assets/sipmarray_small.jpg", top=True,
                         className="card-img-top overflow-hidden",
-                        style={'height': '100%'}),
+                        style={'height': '100%', "object-fit": "cover"}),
 
         ),
         dbc.Col(
@@ -109,7 +109,7 @@ layout = dbc.Container([
                                  'text-align': 'center'}),
     html.H4('Quickly and easily plan your future detector array',
             style={'text-align': 'center'}),
-    html.Hr(),
+    html.Hr(style = {'margin-bottom':'1rem'}),
     dbc.Row([
             dbc.Col([
                 html.H3('What is ArrayMaker?', style={'text-align': 'center'}),
@@ -125,7 +125,7 @@ layout = dbc.Container([
             ]),
 
             ], style={'margin-top': '1rem', 'margin-bottom': '2rem'}),
-    html.Hr(),
+    html.Hr(style = {'margin-bottom':'2rem'}),
     html.Div([
         dbc.Row(
             [

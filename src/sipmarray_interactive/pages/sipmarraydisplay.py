@@ -4,7 +4,7 @@ import plotly.graph_objects as go
 from dash import dcc, html
 
 from sipmarray_interactive.utils.interactive_aux_functions import \
-    build_updated_array
+    build_updated_array, get_properties_to_print
 
 from .common import make_footer, make_navbar
 
@@ -16,16 +16,12 @@ footer = make_footer()
 
 # Initial SiPMarray
 initial_model = 'tile'
-initial_diameter = 160
-initial_margin = 10
+initial_diameter = 300
+initial_margin = 0
 array = build_updated_array(initial_model, initial_diameter, initial_margin)
 
 # Initial text
-n_SiPMs = array.n_sipms
-active_area = array.total_sipm_active_area
-coverage = array.sipm_coverage
-text_result_string = f'Number of sensors: {n_SiPMs}\nActive area: {active_area:.2f} mm2\nCoverage: {coverage:.2f} %'
-
+text_result_string = get_properties_to_print(array)
 text_active_corners = ''
 
 
@@ -70,7 +66,8 @@ option_card = dbc.Card([
             debounce=True,
             min=1,
             max=10000,
-            style={'width': '150px', 'marginLeft': '10px', 'marginTop': '15px'}
+            style={'width': '150px', 'marginLeft': '10px', 
+                   'marginTop': '15px'}
         ),
     ], style={'display': 'flex', 'align-items': 'center'}),
     html.Div([
@@ -86,8 +83,17 @@ option_card = dbc.Card([
             debounce=True,
             style={'width': '145px', 'marginLeft': '10px', 'marginTop': '15px'}
         ),
-    ], style={'display': 'flex', 'align-items': 'center'}),
-    
+        html.I(className="bi bi-exclamation-triangle-fill me-2",
+               id = 'coverage-warning-icon',
+               style = {'color': 'red', 'margin-top':'0.5rem',
+                        'margin-left' : '1rem','display': 'none'}),
+        dbc.Tooltip(
+            "If margin > 0, the ative area coverage should be "
+            "taken as approximate, as sensros outside the "
+            "array are still counted as active area.",
+            target="coverage-warning-icon",
+        ),
+        ], style={'display': 'flex', 'align-items': 'center'},)
     ]),
 ])
 
@@ -95,7 +101,7 @@ text_results = dcc.Textarea(
         id='text-result',
         value=text_result_string,
         readOnly=True,
-        style={'width': '100%', 'height': '7rem', 
+        style={'width': '100%', 'height': '8rem', 
                #'margin-left': '1rem', 
                'margin-top': '1rem',
                'resize': 'none', 'margin-bottom': '1rem'}  
@@ -163,7 +169,10 @@ layout = dbc.Container([
             ))
         ], width = {'size': 6, 'offset': 0}, ),#style={'margin-left': '1rem'}),
         dbc.Col([  # column of plot
-            plot
+            dcc.Loading(
+                plot,
+                type = 'circle',
+                )
 
         ], width = {'size': 6})
     ]),

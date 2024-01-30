@@ -36,5 +36,8 @@ def get_properties_to_print(array):
     n_sipms = array.n_sipms
     active_area = array.total_sipm_active_area
     coverage = array.sipm_coverage
-    string = f'Number of sensors: {n_sipms}\nActive area: {active_area:.2f} mm2\nCoverage: {coverage:.2f} %'
+    string = f"""Number of sensors modules: {n_sipms}
+Active area: {active_area:.2f} mm2
+Active area total coverage: {coverage*100:.2f} %
+PDE of sensor: {array.sipmunit.pde*100:.0f} %"""
     return string
