@@ -1,4 +1,4 @@
-from sipmarray_interactive.app import app
+from arraymaker.app import app
 
 server = app.server
 if __name__ == "__main__":

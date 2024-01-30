@@ -3,7 +3,7 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "sipmarray_interactive"
+name = "arraymaker"
 version = "0.1"
 authors = [{ name="Ricardo Peres", email="rperes@physik.uzh.ch"},]
 description = "Dash display for sipmarray."
@@ -24,5 +24,5 @@ classifiers = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/ricmperes/sipmarray-interactive"
-"Bug Tracker" = "https://github.com/ricmperes/sipmarray-interactive/issues"
+"Homepage" = "https://github.com/ricmperes/arraymaker"
+"Bug Tracker" = "https://github.com/ricmperes/arraymaker/issues"

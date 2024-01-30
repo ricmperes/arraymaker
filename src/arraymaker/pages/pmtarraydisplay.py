@@ -3,39 +3,43 @@ import dash_bootstrap_components as dbc
 import plotly.graph_objects as go
 from dash import dcc, html
 
-from sipmarray_interactive.utils.interactive_aux_functions import \
-    build_updated_array, get_properties_to_print
+from arraymaker.utils.interactive_aux_functions import \
+    build_updated_array
 
 from .common import make_footer, make_navbar
 
-dash.register_page(__name__, path='/sipmarray/', title='ArrayMaker - SiPMs')
+dash.register_page(__name__, path='/pmtarray/', title='ArrayMaker - PMTs')
 
 navbar = make_navbar()
 footer = make_footer()
 
 
-# Initial SiPMarray
+# Initial PMTarray
 initial_model = 'tile'
-initial_diameter = 300
-initial_margin = 0
+initial_diameter = 160
+initial_margin = 10
 array = build_updated_array(initial_model, initial_diameter, initial_margin)
 
 # Initial text
-text_result_string = get_properties_to_print(array)
+n_pmts = array.n_sipms
+active_area = array.total_sipm_active_area
+coverage = array.sipm_coverage
+text_result_string = f'Number of sensors: {n_pmts}\nActive area: {active_area:.2f} mm2\nCoverage: {coverage:.2f} %'
+
 text_active_corners = ''
 
 
 option_card = dbc.Card([
     dbc.CardBody([
-        html.H4("Select SiPM options", className="card-title"),
+        html.H4("Select PMT options", className="card-title"),
         # html.P(
-        #     "Select options for the SiPM array.",
+        #     "Select options for the PMT array.",
         #     className="card-text",
         # ),
 
         html.Div([html.Div(
             id='text-model',
-            children=f'SiPM Model:',
+            children=f'PMT Model:',
             # Add some margin for better separation
             style={'marginLeft': '10px'}
         ),
@@ -45,12 +49,11 @@ option_card = dbc.Card([
                 {'label': 'UZH Tile', 'value': 'tile'},
                 {'label': 'Quad (12x12 mm2)', 'value': 'quad'},
                 {'label': '6x6 mm2', 'value': '6x6'},
-                {'label': '3x3 mm2', 'value': '3x3'},
-                {'label': 'Digital SiPM modules', 'value': 'digital'},
+                {'label': '3x3 mm2', 'value': '3x3'}
                 # Add more options as needed
             ],
             value='tile',  # Default value
-            style={'width': '200px', 'marginLeft': '5px'}
+            style={'width': '180px', 'marginLeft': '5px'}
         ),
     ], style={'display': 'flex', 'align-items': 'center'}),
     html.Div([
@@ -66,8 +69,7 @@ option_card = dbc.Card([
             debounce=True,
             min=1,
             max=10000,
-            style={'width': '150px', 'marginLeft': '10px', 
-                   'marginTop': '15px'}
+            style={'width': '150px', 'marginLeft': '10px', 'marginTop': '15px'}
         ),
     ], style={'display': 'flex', 'align-items': 'center'}),
     html.Div([
@@ -83,17 +85,8 @@ option_card = dbc.Card([
             debounce=True,
             style={'width': '145px', 'marginLeft': '10px', 'marginTop': '15px'}
         ),
-        html.I(className="bi bi-exclamation-triangle-fill me-2",
-               id = 'coverage-warning-icon',
-               style = {'color': 'red', 'margin-top':'0.5rem',
-                        'margin-left' : '1rem','display': 'none'}),
-        dbc.Tooltip(
-            "If margin > 0, the ative area coverage should be "
-            "taken as approximate, as sensros outside the "
-            "array are still counted as active area.",
-            target="coverage-warning-icon",
-        ),
-        ], style={'display': 'flex', 'align-items': 'center'},)
+    ], style={'display': 'flex', 'align-items': 'center'}),
+    
     ]),
 ])
 
@@ -101,7 +94,7 @@ text_results = dcc.Textarea(
         id='text-result',
         value=text_result_string,
         readOnly=True,
-        style={'width': '100%', 'height': '8rem', 
+        style={'width': '100%', 'height': '7rem', 
                #'margin-left': '1rem', 
                'margin-top': '1rem',
                'resize': 'none', 'margin-bottom': '1rem'}  
@@ -134,7 +127,7 @@ export_buttons =  html.Div([
 
 
 plot = dcc.Graph(
-            id='sipm-array-plot',
+            id='pmt-array-plot',
             figure=go.Figure(),
              style={'width': '90%', 
                     'height': '100%',
@@ -155,7 +148,7 @@ export_text = dcc.Textarea(
         )
 layout = dbc.Container([
     navbar,
-    html.H1("SiPM Array Display", 
+    html.H1("PMT Array Display", 
             style={'margin-top': '1rem',
                    'text-align': 'center'}),
     html.Hr(style = {'margin-bottom':'1rem'}),
@@ -169,10 +162,7 @@ layout = dbc.Container([
             ))
         ], width = {'size': 6, 'offset': 0}, ),#style={'margin-left': '1rem'}),
         dbc.Col([  # column of plot
-            dcc.Loading(
-                plot,
-                type = 'circle',
-                )
+            plot
 
         ], width = {'size': 6})
     ]),
@@ -191,3 +181,4 @@ layout = dbc.Container([
 
     footer
 ], fluid = True)
+

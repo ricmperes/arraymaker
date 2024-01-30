@@ -1,7 +1,7 @@
 import dash
 import dash_bootstrap_components as dbc
 
-from sipmarray_interactive.callbacks.merge_callbacks import get_all_callbacks
+from arraymaker.callbacks.merge_callbacks import get_all_callbacks
 
 # external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 external_stylesheets = [dbc.themes.FLATLY, dbc.icons.BOOTSTRAP]

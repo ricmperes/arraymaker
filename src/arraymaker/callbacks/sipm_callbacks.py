@@ -3,8 +3,8 @@ from dash.dependencies import Input, Output
 from dash.exceptions import PreventUpdate
 import plotly.graph_objects as go
 from sipmarray import SiPMarray
-from sipmarray_interactive.utils.plotly_functions import plot_sipm_array
-from sipmarray_interactive.utils.interactive_aux_functions import *
+from arraymaker.utils.plotly_functions import plot_sipm_array
+from arraymaker.utils.interactive_aux_functions import *
 
 
 # Initial SiPMarray
