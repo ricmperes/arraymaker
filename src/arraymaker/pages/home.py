@@ -102,8 +102,6 @@ between sensors. The tool will then display how they would be optimally
 placed, the total coverage of the array and the number of sensors required. 
 the coordinates of the sensors can then be exported to use."""
 
-title = 'ArrayMaker'
-
 layout = dbc.Container([
     navbar,
     html.H1('ArrayMaker', style={'margin-top': '1rem',

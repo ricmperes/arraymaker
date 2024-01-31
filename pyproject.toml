@@ -12,7 +12,8 @@ requires-python = ">=3.7"
 dependencies = [
     "numpy",
     "matplotlib",
-    "sipmarray"
+    "sipmarray",
+    "pmtarray"
     ]
 classifiers = [
     "Programming Language :: Python :: 3",
