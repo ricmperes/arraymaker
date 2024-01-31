@@ -1,7 +1,8 @@
 import dash
-from dash import html
 import dash_bootstrap_components as dbc
-from .common import make_navbar, make_footer
+from dash import html
+
+from .common import make_footer, make_navbar
 
 dash.register_page(__name__, path='/', title='ArrayMaker')
 
@@ -109,7 +110,7 @@ layout = dbc.Container([
                                  'text-align': 'center'}),
     html.H4('Quickly and easily plan your future detector array',
             style={'text-align': 'center'}),
-    html.Hr(style = {'margin-bottom':'1rem'}),
+    html.Hr(style={'margin-bottom': '1rem'}),
     dbc.Row([
             dbc.Col([
                 html.H3('What is ArrayMaker?', style={'text-align': 'center'}),
@@ -125,7 +126,7 @@ layout = dbc.Container([
             ]),
 
             ], style={'margin-top': '1rem', 'margin-bottom': '2rem'}),
-    html.Hr(style = {'margin-bottom':'2rem'}),
+    html.Hr(style={'margin-bottom': '2rem'}),
     html.Div([
         dbc.Row(
             [

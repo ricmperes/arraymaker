@@ -1,10 +1,11 @@
 import dash
+import plotly.graph_objects as go
 from dash.dependencies import Input, Output
 from dash.exceptions import PreventUpdate
-import plotly.graph_objects as go
 from pmtarray import PMTarray
-from arraymaker.utils.plotly_functions import plot_square_pmt_array, \
-    plot_circular_pmt_array
+
+from arraymaker.utils.plotly_functions import (plot_circular_pmt_array,
+                                               plot_square_pmt_array)
 from arraymaker.utils.pmt_aux_functions import *
 
 # Initial PMTarray
