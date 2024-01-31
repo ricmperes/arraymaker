@@ -6,7 +6,7 @@ def make_navbar():
     return dbc.NavbarSimple(
         children=[
             dbc.NavItem(dbc.NavLink("Home", href="/arraymaker/")),
-            dbc.NavItem(dbc.NavLink("Sensor types", href="/arraymaker/sensors")),
+            dbc.NavItem(dbc.NavLink("Sensor types", href="/arraymaker/photosensors")),
             dbc.DropdownMenu(
                 children=[
                     dbc.DropdownMenuItem("SiPM array", href="/arraymaker/sipmarray"),

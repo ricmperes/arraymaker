@@ -24,7 +24,7 @@ card_sensors = dbc.Card([
                     className="card-text",
                 ),
                 dbc.Button("Sensor types", color="primary",
-                           href="/arraymaker/sensors"),
+                           href="/arraymaker/photosensors"),
 
             ]),
             style={"height": "100%", "display": "flex",

@@ -3,7 +3,7 @@ import numpy as np
 import numpy.ma as ma
 
 
-def plot_square_model(mppc):
+def plot_square_model(mppc, fig=None):
     """Make a plot of the SiPM unit model using Plotly
 
     Args:
@@ -15,22 +15,22 @@ def plot_square_model(mppc):
     Returns:
         plotly.graph_objects.Figure or None: updated figure environment
     """
+    if fig is None:
+        fig = go.Figure()
 
-    fig = go.Figure()
-
-    x0= mppc.width_tolerance
-    y0= mppc.height_tolerance
-    x1= mppc.width_tolerance + mppc.width_package
-    y1= mppc.height_tolerance + mppc.height_package
+    x0 = mppc.width_tolerance
+    y0 = mppc.height_tolerance
+    x1 = mppc.width_tolerance + mppc.width_package
+    y1 = mppc.height_tolerance + mppc.height_package
 
     xs_packaging = [x0, x0, x1, x1]
     ys_packaging = [y0, y1, y1, y0]
 
-    x0= mppc.D_corner_x_active
-    y0= mppc.D_corner_y_active
-    x1= mppc.D_corner_x_active + mppc.width_active
-    y1= mppc.D_corner_y_active + mppc.height_active
-    
+    x0 = mppc.D_corner_x_active
+    y0 = mppc.D_corner_y_active
+    x1 = mppc.D_corner_x_active + mppc.width_active
+    y1 = mppc.D_corner_y_active + mppc.height_active
+
     xs_active = [x0, x0, x1, x1, None]
     ys_active = [y0, y1, y1, y0, None]
 
@@ -40,20 +40,20 @@ def plot_square_model(mppc):
                              fillcolor='gray',
                              opacity=0.3,
                              marker={'opacity': 0},
-                             line=dict(color='black' ),
+                             line=dict(color='black'),
                              name='Packaging area'
                              )
-                             )
+                  )
     fig.add_trace(go.Scatter(x=xs_active,
                              y=ys_active,
                              fill="toself",
                              fillcolor='black',
                              opacity=0.7,
                              marker={'opacity': 0},
-                             line=dict(color='black' ),
+                             line=dict(color='black'),
                              name='Active area'
                              )
-                             )
+                  )
 
     geometric_centre = mppc.get_unit_centre()
     active_centre = mppc.get_unit_active_centre()
@@ -85,22 +85,34 @@ def plot_square_model(mppc):
         width=500,
         height=500,
         autosize=False,
-        xaxis_range=[x0 - 0.1 * mppc.width_unit, x0 + 1.1 * mppc.width_unit],
-        yaxis_range=[y0 - 0.1 * mppc.height_unit, y0 + 1.1 * mppc.height_unit],
-        xaxis=dict(title='x [mm]', scaleanchor="y", scaleratio=1),
-        #           range=[x0 - 0.1 * mppc.width_unit, x0 + 1.1 * mppc.width_unit]),
-        yaxis=dict(title='y [mm]'),
+        xaxis_range=[mppc.width_tolerance - 0.2 * mppc.width_unit,
+                     mppc.width_tolerance + 1.2 * mppc.width_unit],
+        yaxis_range=[mppc.height_tolerance - 0.2 * mppc.height_unit,
+                     mppc.height_tolerance + 1.2 * mppc.height_unit],
+        xaxis=dict(title='x [mm]', scaleanchor="y", scaleratio=1,
+                   showgrid=True,
+                   gridwidth=0.5,
+                   gridcolor='lightgray',
+                   layer='below traces'
+                   ),
+        yaxis=dict(title='y [mm]',
+                   showgrid=True,
+                   gridwidth=0.5,
+                   gridcolor='lightgray',
+                   layer='below traces'
+                   ),
         legend=dict(x=.1, y=1.1, orientation='h'),
         showlegend=True,
         hovermode='closest',
         template='simple_white',
-        margin=dict(l=0, r=0, t=0, b=0)
+        margin=dict(l=0, r=0, t=0, b=0,),
+        
     )
 
-    fig.show()
     return fig
 
-def plot_circular_pmt_model(pmt):
+
+def plot_circular_pmt_model(pmt, fig=None):
     """Make a plot of the SiPM unit model using Plotly
 
     Args:
@@ -112,8 +124,8 @@ def plot_circular_pmt_model(pmt):
     Returns:
         plotly.graph_objects.Figure or None: updated figure environment
     """
-
-    fig = go.Figure()
+    if fig is None:
+        fig = go.Figure()
 
     # Packaging
     fig.add_shape(
@@ -140,7 +152,6 @@ def plot_circular_pmt_model(pmt):
         line=dict(color='black'),
         name='Active area',
     )
-    
 
     geometric_centre = pmt.get_unit_centre()
     active_centre = pmt.get_unit_active_centre()
@@ -172,11 +183,21 @@ def plot_circular_pmt_model(pmt):
         width=500,
         height=500,
         autosize=False,
-        xaxis_range=[-0.6 * pmt.diameter_packaging, 0.6 * pmt.diameter_packaging],
-        yaxis_range=[-0.6 * pmt.diameter_packaging, 0.6 * pmt.diameter_packaging],
-        xaxis=dict(title='x [mm]', scaleanchor="y", scaleratio=1),
-        #           range=[x0 - 0.1 * mppc.width_unit, x0 + 1.1 * mppc.width_unit]),
-        yaxis=dict(title='y [mm]'),
+        xaxis_range=[-0.6 * pmt.diameter_packaging,
+                     0.6 * pmt.diameter_packaging],
+        yaxis_range=[-0.6 * pmt.diameter_packaging,
+                     0.6 * pmt.diameter_packaging],
+        xaxis=dict(title='x [mm]', scaleanchor="y", scaleratio=1,
+                   showgrid=True,
+                   gridwidth=0.5,
+                   gridcolor='lightgray',
+                   layer='below traces'
+                   ),
+        yaxis=dict(title='y [mm]',showgrid=True,
+                   gridwidth=0.5,
+                   gridcolor='lightgray',
+                   layer='below traces'
+                   ),
         legend=dict(x=.1, y=1.1, orientation='h'),
         showlegend=True,
         hovermode='closest',
@@ -184,10 +205,10 @@ def plot_circular_pmt_model(pmt):
         margin=dict(l=0, r=0, t=0, b=0)
     )
 
-    fig.show()
     return fig
 
-def plot_sipm_array(array, fig = None):
+
+def plot_sipm_array(array, fig=None):
     """Plot the array of SiPMs using Plotly.
 
     Args:
@@ -200,7 +221,7 @@ def plot_sipm_array(array, fig = None):
 
     if fig is None:
         fig = go.Figure()
-    
+
     n_corner_x, n_corner_y = np.shape(array.D_corners_xx)
 
     xs_packaging = []
@@ -212,26 +233,26 @@ def plot_sipm_array(array, fig = None):
         for _y_i in range(n_corner_y):
             _x0 = array.D_corners_xx[_x_i, _y_i]
             _y0 = array.D_corners_yy[_x_i, _y_i]
-            
+
             space_has_not_sipm = (ma.is_masked(_x0) and ma.is_masked(_y0))
 
             if space_has_not_sipm:
                 continue
             else:
-                             
-                x0=_x0 + array.sipmunit.width_tolerance
-                y0=_y0 + array.sipmunit.height_tolerance
-                x1=_x0 + array.sipmunit.width_tolerance + array.sipmunit.width_package
-                y1=_y0 + array.sipmunit.height_tolerance + array.sipmunit.height_package
-            
+
+                x0 = _x0 + array.sipmunit.width_tolerance
+                y0 = _y0 + array.sipmunit.height_tolerance
+                x1 = _x0 + array.sipmunit.width_tolerance + array.sipmunit.width_package
+                y1 = _y0 + array.sipmunit.height_tolerance + array.sipmunit.height_package
+
                 xs_packaging += [x0, x0, x1, x1, None]
                 ys_packaging += [y0, y1, y1, y0, None]
 
-                x0=_x0 + array.sipmunit.D_corner_x_active
-                y0=_y0 + array.sipmunit.D_corner_y_active
-                x1=_x0 + array.sipmunit.D_corner_x_active + array.sipmunit.width_active
-                y1=_y0 + array.sipmunit.D_corner_y_active + array.sipmunit.height_active
-                
+                x0 = _x0 + array.sipmunit.D_corner_x_active
+                y0 = _y0 + array.sipmunit.D_corner_y_active
+                x1 = _x0 + array.sipmunit.D_corner_x_active + array.sipmunit.width_active
+                y1 = _y0 + array.sipmunit.D_corner_y_active + array.sipmunit.height_active
+
                 xs_active += [x0, x0, x1, x1, None]
                 ys_active += [y0, y1, y1, y0, None]
 
@@ -240,19 +261,19 @@ def plot_sipm_array(array, fig = None):
                              fill="toself",
                              fillcolor='gray',
                              opacity=0.3,
-                             line=dict(color='black' ),
+                             line=dict(color='black'),
                              name='Packaging area'
                              )
-                             )
+                  )
     fig.add_trace(go.Scatter(x=xs_active,
                              y=ys_active,
                              fill="toself",
                              fillcolor='black',
                              opacity=0.7,
-                             line=dict(color='black' ),
+                             line=dict(color='black'),
                              name='Active area'
                              )
-                             )
+                  )
 
     # Array diameter circle
     fig.add_shape(
@@ -263,20 +284,22 @@ def plot_sipm_array(array, fig = None):
         y1=array.array_diameter / 2,
         fillcolor='rgba(0,0,0,0)',
         opacity=1.,
-        line=dict(color='DarkRed',width=4,),
+        line=dict(color='DarkRed', width=4,),
         name='Array diameter',
         layer='above'
     )
 
     # Layout settings
     fig.update_layout(
-        
-        xaxis_range=[-array.array_diameter * 1.2 / 2, array.array_diameter * 1.2 / 2],
-        yaxis_range=[-array.array_diameter * 1.2 / 2, array.array_diameter * 1.2 / 2],
+
+        xaxis_range=[-array.array_diameter * 1.2 /
+                     2, array.array_diameter * 1.2 / 2],
+        yaxis_range=[-array.array_diameter * 1.2 /
+                     2, array.array_diameter * 1.2 / 2],
         xaxis=dict(title='x [mm]', scaleanchor="y", scaleratio=1),
         yaxis=dict(title='y [mm]'),
         showlegend=False,
-        #legend=dict(x=0.05, y=0.95),
+        # legend=dict(x=0.05, y=0.95),
         hovermode='closest',
         width=600,
         height=500,
@@ -284,13 +307,10 @@ def plot_sipm_array(array, fig = None):
         margin=dict(l=0, r=0, t=0, b=0)
     )
 
-    if fig is None:
-        fig.show()
-    
     return fig
 
 
-def plot_square_pmt_array(array, fig = None):
+def plot_square_pmt_array(array, fig=None):
     """Plot the array of PMTs using Plotly.
 
     Args:
@@ -303,7 +323,7 @@ def plot_square_pmt_array(array, fig = None):
 
     if fig is None:
         fig = go.Figure()
-    
+
     n_corner_x, n_corner_y = np.shape(array.D_corners_xx)
 
     xs_packaging = []
@@ -315,26 +335,26 @@ def plot_square_pmt_array(array, fig = None):
         for _y_i in range(n_corner_y):
             _x0 = array.D_corners_xx[_x_i, _y_i]
             _y0 = array.D_corners_yy[_x_i, _y_i]
-            
+
             space_has_not_sipm = (ma.is_masked(_x0) and ma.is_masked(_y0))
 
             if space_has_not_sipm:
                 continue
             else:
-                             
-                x0=_x0 + array.pmtunit.width_tolerance
-                y0=_y0 + array.pmtunit.height_tolerance
-                x1=_x0 + array.pmtunit.width_tolerance + array.pmtunit.width_package
-                y1=_y0 + array.pmtunit.height_tolerance + array.pmtunit.height_package
-            
+
+                x0 = _x0 + array.pmtunit.width_tolerance
+                y0 = _y0 + array.pmtunit.height_tolerance
+                x1 = _x0 + array.pmtunit.width_tolerance + array.pmtunit.width_package
+                y1 = _y0 + array.pmtunit.height_tolerance + array.pmtunit.height_package
+
                 xs_packaging += [x0, x0, x1, x1, None]
                 ys_packaging += [y0, y1, y1, y0, None]
 
-                x0=_x0 + array.pmtunit.D_corner_x_active
-                y0=_y0 + array.pmtunit.D_corner_y_active
-                x1=_x0 + array.pmtunit.D_corner_x_active + array.pmtunit.width_active
-                y1=_y0 + array.pmtunit.D_corner_y_active + array.pmtunit.height_active
-                
+                x0 = _x0 + array.pmtunit.D_corner_x_active
+                y0 = _y0 + array.pmtunit.D_corner_y_active
+                x1 = _x0 + array.pmtunit.D_corner_x_active + array.pmtunit.width_active
+                y1 = _y0 + array.pmtunit.D_corner_y_active + array.pmtunit.height_active
+
                 xs_active += [x0, x0, x1, x1, None]
                 ys_active += [y0, y1, y1, y0, None]
 
@@ -343,19 +363,19 @@ def plot_square_pmt_array(array, fig = None):
                              fill="toself",
                              fillcolor='gray',
                              opacity=0.3,
-                             line=dict(color='black' ),
+                             line=dict(color='black'),
                              name='Packaging area'
                              )
-                             )
+                  )
     fig.add_trace(go.Scatter(x=xs_active,
                              y=ys_active,
                              fill="toself",
                              fillcolor='black',
                              opacity=0.7,
-                             line=dict(color='black' ),
+                             line=dict(color='black'),
                              name='Active area'
                              )
-                             )
+                  )
 
     # Array diameter circle
     fig.add_shape(
@@ -366,19 +386,21 @@ def plot_square_pmt_array(array, fig = None):
         y1=array.array_diameter / 2,
         fillcolor='rgba(0,0,0,0)',
         opacity=1.,
-        line=dict(color='DarkRed',width=4,),
+        line=dict(color='DarkRed', width=4,),
         name='Array diameter',
         layer='above'
     )
 
     # Layout settings
     fig.update_layout(
-        xaxis_range=[-array.array_diameter * 1.2 / 2, array.array_diameter * 1.2 / 2],
-        yaxis_range=[-array.array_diameter * 1.2 / 2, array.array_diameter * 1.2 / 2],
+        xaxis_range=[-array.array_diameter * 1.2 /
+                     2, array.array_diameter * 1.2 / 2],
+        yaxis_range=[-array.array_diameter * 1.2 /
+                     2, array.array_diameter * 1.2 / 2],
         xaxis=dict(title='x [mm]', scaleanchor="y", scaleratio=1),
         yaxis=dict(title='y [mm]'),
         showlegend=False,
-        #legend=dict(x=0.05, y=0.95),
+        # legend=dict(x=0.05, y=0.95),
         hovermode='closest',
         width=600,
         height=500,
@@ -386,13 +408,10 @@ def plot_square_pmt_array(array, fig = None):
         margin=dict(l=0, r=0, t=0, b=0)
     )
 
-    if fig is None:
-        fig.show()
-    
     return fig
 
 
-def plot_circular_pmt_array(array, fig = None):
+def plot_circular_pmt_array(array, fig=None):
     """Plot the array of pmts.
 
     Args:
@@ -404,7 +423,6 @@ def plot_circular_pmt_array(array, fig = None):
     """
     if fig is None:
         fig = go.Figure()
-    
 
     shapes_pmts = []
 
@@ -412,23 +430,23 @@ def plot_circular_pmt_array(array, fig = None):
         shapes_pmts += [go.layout.Shape(
             type='circle',
             x0=_x_i - array.pmtunit.diameter_packaging / 2,
-            y0=_y_i -array.pmtunit.diameter_packaging / 2,
+            y0=_y_i - array.pmtunit.diameter_packaging / 2,
             x1=_x_i + array.pmtunit.diameter_packaging / 2,
             y1=_y_i + array.pmtunit.diameter_packaging / 2,
             fillcolor='gray',
             opacity=0.3,
-            line=dict(color='black' ),
+            line=dict(color='black'),
             name='Packaging area'),
 
-        go.layout.Shape(
+            go.layout.Shape(
             type='circle',
             x0=_x_i - array.pmtunit.active_diameter / 2,
-            y0=_y_i -array.pmtunit.active_diameter / 2,
+            y0=_y_i - array.pmtunit.active_diameter / 2,
             x1=_x_i + array.pmtunit.active_diameter / 2,
             y1=_y_i + array.pmtunit.active_diameter / 2,
             fillcolor='black',
             opacity=0.7,
-            line=dict(color='black' ),
+            line=dict(color='black'),
             name='Active area')
         ]
 
@@ -441,20 +459,22 @@ def plot_circular_pmt_array(array, fig = None):
         y1=array.array_diameter / 2,
         fillcolor='rgba(0,0,0,0)',
         opacity=1.,
-        line=dict(color='DarkRed',width=4,),
+        line=dict(color='DarkRed', width=4,),
         name='Array diameter',
         layer='above'
-        )]
+    )]
 
     # Layout settings
     fig.update_layout(
         shapes=shapes_pmts,
-        xaxis_range=[-array.array_diameter * 1.2 / 2, array.array_diameter * 1.2 / 2],
-        yaxis_range=[-array.array_diameter * 1.2 / 2, array.array_diameter * 1.2 / 2],
+        xaxis_range=[-array.array_diameter * 1.2 /
+                     2, array.array_diameter * 1.2 / 2],
+        yaxis_range=[-array.array_diameter * 1.2 /
+                     2, array.array_diameter * 1.2 / 2],
         xaxis=dict(title='x [mm]', scaleanchor="y", scaleratio=1),
         yaxis=dict(title='y [mm]'),
         showlegend=False,
-        #legend=dict(x=0.05, y=0.95),
+        # legend=dict(x=0.05, y=0.95),
         hovermode='closest',
         width=600,
         height=500,
@@ -462,7 +482,4 @@ def plot_circular_pmt_array(array, fig = None):
         margin=dict(l=0, r=0, t=0, b=0)
     )
 
-    if fig is None:
-        fig.show()
-    
     return fig

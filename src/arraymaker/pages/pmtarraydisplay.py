@@ -125,7 +125,7 @@ text_results = dcc.Textarea(
                #'margin-left': '1rem', 
                'margin-top': '1rem',
                'resize': 'none', 'margin-bottom': '1rem'}  
-    ),
+    )
 
 export_buttons =  html.Div([
         dbc.Button(
@@ -173,6 +173,7 @@ export_text = dcc.Textarea(
                    'height': '100%', 
                    'resize': 'none', }
         )
+
 layout = dbc.Container([
     navbar,
     html.H1("PMT Array Display", 
