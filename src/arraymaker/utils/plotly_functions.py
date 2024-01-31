@@ -290,7 +290,7 @@ def plot_sipm_array(array, fig = None):
     return fig
 
 
-def plot_squre_pmt_array(array, fig = None):
+def plot_square_pmt_array(array, fig = None):
     """Plot the array of PMTs using Plotly.
 
     Args:
