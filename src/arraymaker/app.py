@@ -12,11 +12,11 @@ app = dash.Dash(__name__,
                 external_stylesheets=external_stylesheets,
                 routes_pathname_prefix='/arraymaker/',
                 use_pages=True)
-app.title = 'SiPM array display'
+app.title = 'ArrayMaker'
 # app.layout = get_layout()
 
 get_all_callbacks(app)
 
 # Run the app
 if __name__ == '__main__':
-    app.run_server(debug=True, port=2024)
+    app.run_server()

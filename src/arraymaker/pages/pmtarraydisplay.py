@@ -7,7 +7,7 @@ from arraymaker.utils.plotly_functions import (plot_circular_pmt_array,
                                                plot_sipm_array)
 from arraymaker.utils.pmt_aux_functions import build_updated_pmt_array
 
-from .common import make_footer, make_navbar
+from arraymaker.pages.common import make_footer, make_navbar
 
 dash.register_page(__name__, path='/pmtarray/', title='ArrayMaker - PMTs')
 
@@ -191,7 +191,9 @@ layout = dbc.Container([
             ))
         ], width={'size': 6, 'offset': 0}, ),  # style={'margin-left': '1rem'}),
         dbc.Col([  # column of plot
-            plot
+            dcc.Loading(plot,
+                        type = 'circle',
+            )
 
         ], width={'size': 6})
     ]),

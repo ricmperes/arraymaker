@@ -2,7 +2,7 @@ import dash
 import dash_bootstrap_components as dbc
 from dash import dcc, html
 
-from .common import make_footer, make_navbar
+from arraymaker.pages.common import make_footer, make_navbar
 
 dash.register_page(__name__, path='/about/', title='ArrayMaker')
 

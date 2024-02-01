@@ -6,7 +6,7 @@ from dash import dcc, html
 from arraymaker.utils.sipm_aux_functions import (build_updated_sipm_array,
                                                  get_sipm_properties_to_print)
 
-from .common import make_footer, make_navbar
+from arraymaker.pages.common import make_footer, make_navbar
 
 dash.register_page(__name__, path='/sipmarray/', title='ArrayMaker - SiPMs')
 
