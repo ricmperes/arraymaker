@@ -61,7 +61,8 @@ Picture credits:
   * Xenoscope: LBG
   * SiPM array of Xenoscope: LBG
                           
-ArrayMaker code and layout by [Ricardo Peres](https://ricmperes.github.io/).
+ArrayMaker code and layout by [Ricardo Peres](https://ricmperes.github.io/). 
+Available open-source on [GitHub](https://github.com/ricmperes/arraymaker).
 ''',
                           style={'margin-top': '2rem'})
 
