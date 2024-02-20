@@ -68,18 +68,14 @@ def get_pmtcallbacks(app):
     @app.callback(
         Output('download-btn-active-corners-pmt', 'disabled'),
         Output('download-btn-packaging-corners-pmt', 'disabled'),
-        Output('div-intra-distance-pmt', 'style'),
         [Input('dropdown-selection-pmt', 'value')]
     )
     def disable_corner_buttons(new_model):
         # TODO make array and check if circular
         if new_model == '3in':
-            div_style = {'display': 'flex', 'align-items': 'center'}
-            return True, True, div_style
+            return True, True
         elif new_model == '2in':
-            div_style = {'display': 'flex', 'align-items': 'center',
-                         'display': 'none'}
-            return False, False, div_style
+            return False, False
 
     @app.callback(
         Output('export-text-pmt', 'value', allow_duplicate=True),

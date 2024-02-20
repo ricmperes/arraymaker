@@ -11,15 +11,11 @@ from arraymaker.utils.sipm_aux_functions import *
 initial_model = 'tile'
 initial_diameter = 160
 initial_margin = 10
+initial_intra_sipm_distance = 10
 array = build_updated_sipm_array(
-    initial_model, initial_diameter, initial_margin)
+    initial_model, initial_diameter, initial_margin, 
+    initial_intra_sipm_distance)
 
-# Initial text
-initial_model = 'tile'
-initial_diameter = 300
-initial_margin = 10
-array = build_updated_sipm_array(
-    initial_model, initial_diameter, initial_margin)
 text_active_corners = ''
 
 
@@ -31,13 +27,16 @@ def get_sipmcallbacks(app):
         Output('export-text-sipm', 'value', allow_duplicate=True),
         [Input('dropdown-selection-sipm', 'value'),
          Input('diameter-input-sipm', 'value'),
-         Input('margin-input-sipm', 'value')]
+         Input('margin-input-sipm', 'value'),
+         Input('intra-distance-input-sipm', 'value')]
     )
-    def update_plot(new_model, new_diameter, new_margin):
+    def update_plot(new_model, new_diameter, 
+                    new_margin, new_intra_sipm_distance):
 
         # Update SiPMarray based on the selected option
         updated_array = SiPMarray(array_diameter=new_diameter,
                                   border_margin=-1*new_margin,
+                                  intra_sipm_distance=new_intra_sipm_distance,
                                   sipm_model=new_model)
         properties_text = get_sipm_properties_to_print(updated_array)
         too_many = ''
@@ -63,10 +62,11 @@ def get_sipmcallbacks(app):
          Input("download-btn-centers-sipm", "n_clicks"),
          Input('dropdown-selection-sipm', 'value'),
          Input('diameter-input-sipm', 'value'),
-         Input('margin-input-sipm', 'value')]
+         Input('margin-input-sipm', 'value'),
+         Input('intra-distance-input-sipm', 'value')]
     )
     def export_text(n_clicks_active, n_clicks_package, n_clicks_centers,
-                    new_model, new_diameter, new_margin):
+                    new_model, new_diameter, new_margin, new_intra_sipm_distance):
         if n_clicks_active is None and n_clicks_package is None and n_clicks_centers is None:
             raise PreventUpdate
 
@@ -75,13 +75,22 @@ def get_sipmcallbacks(app):
             triggered_button_id = ctx.triggered_id
 
             if triggered_button_id == 'download-btn-active-corners-sipm':
-                return get_active_sipm_corners_csv(new_model, new_diameter, new_margin)
+                return get_active_sipm_corners_csv(new_model, 
+                                                   new_diameter, 
+                                                   new_margin, 
+                                                   new_intra_sipm_distance)
 
             elif triggered_button_id == 'download-btn-packaging-corners-sipm':
-                return get_package_sipm_corners_csv(new_model, new_diameter, new_margin)
+                return get_package_sipm_corners_csv(new_model, 
+                                                    new_diameter, 
+                                                    new_margin, 
+                                                    new_intra_sipm_distance)
 
             elif triggered_button_id == 'download-btn-centers-sipm':
-                return get_sipm_centers_csv(new_model, new_diameter, new_margin)
+                return get_sipm_centers_csv(new_model, 
+                                            new_diameter, 
+                                            new_margin, 
+                                            new_intra_sipm_distance)
 
             else:
                 raise PreventUpdate

@@ -18,8 +18,10 @@ footer = make_footer()
 initial_model = 'tile'
 initial_diameter = 300
 initial_margin = 0
+initial_intra_sipm_distance = 10
 array = build_updated_sipm_array(
-    initial_model, initial_diameter, initial_margin)
+    initial_model, initial_diameter, 
+    initial_margin, initial_intra_sipm_distance)
 
 # Initial text
 text_result_string = get_sipm_properties_to_print(array)
@@ -95,7 +97,23 @@ option_card = dbc.Card([
                 "array are still counted as active area.",
                 target="coverage-warning-icon-sipm",
             ),
-        ], style={'display': 'flex', 'align-items': 'center'},)
+        ], style={'display': 'flex', 'align-items': 'center'},),
+        html.Div(id='div-intra-distance-sipm',
+                 children=[
+                     html.Div(
+                         id='text-intra-distance-sipm',
+                         children=f'Intra-SiPM distance [mm]:',
+                         style={'marginLeft': '10px', 'marginTop': '15px'}
+                     ),
+                     dcc.Input(
+                         id='intra-distance-input-sipm',
+                         type='number',
+                         value=initial_margin,
+                         debounce=True,
+                         style={'width': '100px', 'marginLeft': '10px',
+                                'marginTop': '15px'}
+                     ),
+                 ], style={'display': 'flex', 'align-items': 'center'})
     ]),
 ])
 
