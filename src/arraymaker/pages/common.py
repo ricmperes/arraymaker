@@ -14,6 +14,8 @@ def make_navbar():
                         "SiPM array", href="/arraymaker/sipmarray"),
                     dbc.DropdownMenuItem(
                         "PMT array", href="/arraymaker/pmtarray"),
+                    dbc.DropdownMenuItem(
+                        "Custom sensor array", href="/arraymaker/customarray"),
                 ],
                 nav=True,
                 label="Build array",
