@@ -17,18 +17,39 @@ footer = make_footer()
 
 
 # Initial PMTarray
-initial_model = '3in'
-initial_diameter = 300
+initial_model = 'custom'
+initial_diameter = 200
 initial_margin = 0
-initial_intra_pmt_distance = 10
+initial_intra_sensor_distance = 5
+custom_params = {'type': 'circular',
+                 'name': 'The BEST PMT',
+                 'diameter_packaging': 50,
+                 'active_diameter': 20,
+                 'diameter_tolerance':0,
+                 'qe': 0.34,
+                 'active_area_correction': 1.,
+                 'width_package' : 50,
+                 'height_package' : 50,
+                 'width_tolerance' : 0,
+                 'height_tolerance' : 0,
+                 'width_active' : 20,
+                 'height_active' : 20,
+                 'active_area_correction' : 1,
+                 'D_corner_x_active' : 2.5,
+                 'D_corner_y_active' : 2.5,
+                 }
+
 array = build_updated_pmt_array(initial_model, initial_diameter,
-                                initial_margin, initial_intra_pmt_distance)
+                                initial_margin, initial_intra_sensor_distance,
+                                custom_params=custom_params)
 
 # Initial text
 n_pmts = array.n_pmts
 active_area = array.total_pmt_active_area
 coverage = array.pmt_coverage
-text_result_string = f'Number of sensors: {n_pmts}\nActive area: {active_area:.2f} mm2\nCoverage: {coverage:.2f} %'
+text_result_string = (f'Number of sensors: {n_pmts}\n'
+                      f'Active area: {active_area:.2f} mm2\n'
+                      f'Coverage: {coverage:.2f} %')
 
 text_active_corners = ''
 
@@ -88,7 +109,7 @@ option_card_array = dbc.Card([
                      dcc.Input(
                          id='intra-distance-input-custom',
                          type='number',
-                         value=initial_margin,
+                         value=initial_intra_sensor_distance,
                          debounce=True,
                          style={'width': '100px', 'marginLeft': '10px',
                                 'marginTop': '15px'}
@@ -108,12 +129,12 @@ option_card_sensor = dbc.Card([
             style={'marginLeft': '10px'}
         ),
             dcc.Dropdown(
-            id='dropdown-selection-pmt',
+            id='dropdown-selection-custom',
             options=[
                 {'label': 'round', 'value': 'round'},
                 {'label': 'rectangular', 'value': 'rectangular'},
             ],
-            value='3in',  # Default value
+            value='round',  # Default value
             style={'width': '180px', 'marginLeft': '5px'}
         ),
         ], style={'display': 'flex', 'align-items': 'center'}),
@@ -128,13 +149,14 @@ option_card_sensor = dbc.Card([
                      dcc.Input(
                          id='input-custom-width-package',
                          type='number',
-                         value=initial_margin,
+                         value=custom_params['width_package'],
                          debounce=True,
                          min = 0.,
                          style={'width': '100px', 'marginLeft': '10px',
                                 'marginTop': '15px'}
                      ),
-                 ], style={'display': 'flex', 'align-items': 'center'}),
+                 ], style={'display': 'flex', 'align-items': 'center',},
+                 hidden=False),
             
             html.Div(id='div-custom-height-package',
                  children=[
@@ -146,7 +168,7 @@ option_card_sensor = dbc.Card([
                      dcc.Input(
                          id='input-custom-height-package',
                          type='number',
-                         value=initial_margin,
+                         value=custom_params['height_package'],
                          debounce=True,
                          min = 0.,
                          style={'width': '100px', 'marginLeft': '10px',
@@ -164,7 +186,7 @@ option_card_sensor = dbc.Card([
                      dcc.Input(
                          id='input-custom-width-tolerance',
                          type='number',
-                         value=initial_margin,
+                         value=custom_params['width_tolerance'],
                          debounce=True,
                          min = 0.,
                          style={'width': '100px', 'marginLeft': '10px',
@@ -173,7 +195,7 @@ option_card_sensor = dbc.Card([
                  ], style={'display': 'flex', 'align-items': 'center'}),
 
             html.Div(id='div-custom-height-tolerance',
-                 children=[
+                 children=[                                                                                                                                                         
                      html.Div(
                          id='text-custom-height-tolerance',
                          children=f'Packaging height tolerance [mm]:',
@@ -182,7 +204,7 @@ option_card_sensor = dbc.Card([
                      dcc.Input(
                          id='input-custom-height-tolerance',
                          type='number',
-                         value=initial_margin,
+                         value=custom_params['height_tolerance'],
                          debounce=True,
                          min = 0.,
                          style={'width': '100px', 'marginLeft': '10px',
@@ -200,7 +222,7 @@ option_card_sensor = dbc.Card([
                      dcc.Input(
                          id='input-custom-width-active',
                          type='number',
-                         value=initial_margin,
+                         value=custom_params['width_active'],
                          debounce=True,
                          min = 0.,
                          style={'width': '100px', 'marginLeft': '10px',
@@ -218,7 +240,7 @@ option_card_sensor = dbc.Card([
                      dcc.Input(
                          id='input-custom-height-active',
                          type='number',
-                         value=initial_margin,
+                         value=custom_params['height_active'],
                          debounce=True,
                          min = 0.,
                          style={'width': '100px', 'marginLeft': '10px',
@@ -236,7 +258,7 @@ option_card_sensor = dbc.Card([
                      dcc.Input(
                          id='input-custom-D-corner-x-active',
                          type='number',
-                         value=initial_margin,
+                         value=custom_params['D_corner_x_active'],
                          debounce=True,
                          min = 0.,
                          style={'width': '100px', 'marginLeft': '10px',
@@ -254,7 +276,62 @@ option_card_sensor = dbc.Card([
                      dcc.Input(
                          id='input-custom-D-corner-y-active',
                          type='number',
-                         value=initial_margin,
+                         value=custom_params['D_corner_y_active'],
+                         debounce=True,
+                         min = 0.,
+                         style={'width': '100px', 'marginLeft': '10px',
+                                'marginTop': '15px'}
+                     ),
+                 ], style={'display': 'flex', 'align-items': 'center'}),
+            
+            #ROUND SENSORS PROPERTIES
+            html.Div(id='div-custom-packaging-diameter-sensor',
+                 children=[
+                     html.Div(
+                         id='text-custom-packaging-diameter-sensor',
+                         children=f'Diameter of sensor packaging:',
+                         style={'marginLeft': '10px', 'marginTop': '15px'}
+                     ),
+                     dcc.Input(
+                         id='input-custom-packaging-diameter-sensor',
+                         type='number',
+                         value=custom_params['diameter_packaging'],
+                         debounce=True,
+                         min = 0.,
+                         style={'width': '100px', 'marginLeft': '10px',
+                                'marginTop': '15px'}
+                     ),
+                 ], style={'display': 'flex', 'align-items': 'center'}),
+            
+            html.Div(id='div-custom-active-diameter-sensor',
+                 children=[
+                     html.Div(
+                         id='text-custom-active-diameter-sensor',
+                         children=f'Diameter of sensor active area:',
+                         style={'marginLeft': '10px', 'marginTop': '15px'}
+                     ),
+                     dcc.Input(
+                         id='input-custom-active-diameter-sensor',
+                         type='number',
+                         value=custom_params['active_diameter'],
+                         debounce=True,
+                         min = 0.,
+                         style={'width': '100px', 'marginLeft': '10px',
+                                'marginTop': '15px'}
+                     ),
+                 ], style={'display': 'flex', 'align-items': 'center'}),
+
+            html.Div(id='div-custom-diameter-tolerance-sensor',
+                 children=[
+                     html.Div(
+                         id='text-custom-diameter-tolerance-sensor',
+                         children=f'Sensor diameter tolerance:',
+                         style={'marginLeft': '10px', 'marginTop': '15px'}
+                     ),
+                     dcc.Input(
+                         id='input-custom-diameter-tolerance-sensor',
+                         type='number',
+                         value=custom_params['diameter_tolerance'],
                          debounce=True,
                          min = 0.,
                          style={'width': '100px', 'marginLeft': '10px',
@@ -272,7 +349,7 @@ option_card_sensor = dbc.Card([
                      dcc.Input(
                          id='input-custom-active-area-correction',
                          type='number',
-                         value=initial_margin,
+                         value=custom_params['active_area_correction'],
                          debounce=True,
                          min = 0.,
                          style={'width': '100px', 'marginLeft': '10px',
@@ -280,43 +357,6 @@ option_card_sensor = dbc.Card([
                      ),
                  ], style={'display': 'flex', 'align-items': 'center'}),
 
-            html.Div(id='div-custom-fill-factor',
-                 children=[
-                     html.Div(
-                         id='text-custom-fill-factor',
-                         children=f'Fill factor:',
-                         style={'marginLeft': '10px', 'marginTop': '15px'}
-                     ),
-                     dcc.Input(
-                         id='input-custom-fill-factor',
-                         type='number',
-                         value=initial_margin,
-                         debounce=True,
-                         min = 0.,
-                         style={'width': '100px', 'marginLeft': '10px',
-                                'marginTop': '15px'}
-                     ),
-                 ], style={'display': 'flex', 'align-items': 'center'}),
-
-            html.Div(id='div-custom-pde',
-                 children=[
-                     html.Div(
-                         id='text-custom-pde',
-                         children=f'PDE:',
-                         style={'marginLeft': '10px', 'marginTop': '15px'}
-                     ),
-                     dcc.Input(
-                         id='input-custom-pde',
-                         type='number',
-                         value=initial_margin,
-                         debounce=True,
-                         min = 0.,
-                         style={'width': '100px', 'marginLeft': '10px',
-                                'marginTop': '15px'}
-                     ),
-                 ], style={'display': 'flex', 'align-items': 'center'}),
-
-        
     ]),
 ])
 

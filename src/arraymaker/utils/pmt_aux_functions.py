@@ -3,17 +3,20 @@ import os
 from pmtarray.array import PMTarray
 
 def build_updated_pmt_array(new_model, new_diameter, new_margin, 
-                            new_intra_pmt_distance):
+                            new_intra_pmt_distance, custom_params = {}):
     array = PMTarray(array_diameter = new_diameter, 
                       border_margin = -1*new_margin, 
                       pmt_model = new_model,
-                      intra_pmt_distance = new_intra_pmt_distance)
+                      intra_pmt_distance = new_intra_pmt_distance,
+                      custom_unit_params=custom_params)
     return array
 
 def get_active_pmt_corners_csv(new_model, new_diameter, new_margin,
-                               new_intra_pmt_distance):
+                               new_intra_pmt_distance,
+                               new_custom_params = {}):
     array = build_updated_pmt_array(new_model, new_diameter, new_margin,
-                               new_intra_pmt_distance)
+                               new_intra_pmt_distance, 
+                               custom_params=new_custom_params)
     if array.pmtunit.type == 'circular':
         return ''
     
@@ -24,9 +27,11 @@ def get_active_pmt_corners_csv(new_model, new_diameter, new_margin,
     return download_content
 
 def get_package_pmt_corners_csv(new_model, new_diameter, new_margin,
-                               new_intra_pmt_distance):
+                               new_intra_pmt_distance, 
+                               new_custom_params = {}):
     array = build_updated_pmt_array(new_model, new_diameter, new_margin,
-                               new_intra_pmt_distance)
+                               new_intra_pmt_distance,
+                               custom_params=new_custom_params)
     if array.pmtunit.type == 'circular':
         return ''
     array.export_corners_package(file_name='corners_package.csv')
@@ -36,9 +41,11 @@ def get_package_pmt_corners_csv(new_model, new_diameter, new_margin,
     return download_content
 
 def get_pmt_centers_csv(new_model, new_diameter, new_margin,
-                               new_intra_pmt_distance):
+                        new_intra_pmt_distance, 
+                        new_custom_params = {}):
     array = build_updated_pmt_array(new_model, new_diameter, new_margin,
-                               new_intra_pmt_distance)
+                               new_intra_pmt_distance,
+                               custom_params=new_custom_params)
     array.export_centres(file_name='centres.csv')
     with open('centres.csv', 'r') as f:
         download_content= f.read()

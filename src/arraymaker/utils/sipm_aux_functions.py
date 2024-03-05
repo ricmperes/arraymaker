@@ -4,18 +4,22 @@ from sipmarray.array import SiPMarray
 
 
 def build_updated_sipm_array(
-        new_model, new_diameter, new_margin, new_intra_distance):
+        new_model, new_diameter, new_margin, new_intra_distance,
+        new_custom_params={}):
     array = SiPMarray(array_diameter=new_diameter,
                       border_margin=-1*new_margin,
                       sipm_model=new_model,
-                      intra_sipm_distance=new_intra_distance)
+                      intra_sipm_distance=new_intra_distance,
+                      custom_unit_params=new_custom_params)
     return array
 
 
 def get_active_sipm_corners_csv(
-        new_model, new_diameter, new_margin, new_intra_distance):
+        new_model, new_diameter, new_margin, new_intra_distance,
+        new_custom_params = {}):
     array = build_updated_sipm_array(
-        new_model, new_diameter, new_margin, new_intra_distance)
+        new_model, new_diameter, new_margin, new_intra_distance,
+        new_custom_params=new_custom_params)
     array.export_corners_active(file_name='corners_active.csv')
     with open('corners_active.csv', 'r') as f:
         download_content = f.read()
@@ -24,9 +28,11 @@ def get_active_sipm_corners_csv(
 
 
 def get_package_sipm_corners_csv(new_model, new_diameter,
-                                 new_margin, new_intra_distance):
+                                 new_margin, new_intra_distance,
+                                 new_custom_params = {}):
     array = build_updated_sipm_array(
-        new_model, new_diameter, new_margin, new_intra_distance)
+        new_model, new_diameter, new_margin, new_intra_distance,
+        new_custom_params=new_custom_params)
     array.export_corners_package(file_name='corners_package.csv')
     with open('corners_package.csv', 'r') as f:
         download_content = f.read()
@@ -35,9 +41,11 @@ def get_package_sipm_corners_csv(new_model, new_diameter,
 
 
 def get_sipm_centers_csv(new_model, new_diameter,
-                         new_margin, new_intra_distance):
+                         new_margin, new_intra_distance,
+                         new_custom_params = {}):
     array = build_updated_sipm_array(
-        new_model, new_diameter, new_margin, new_intra_distance)
+        new_model, new_diameter, new_margin, new_intra_distance,
+        new_custom_params=new_custom_params)
     array.export_centres(file_name='centres.csv')
     with open('centres.csv', 'r') as f:
         download_content = f.read()
