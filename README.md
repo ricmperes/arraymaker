@@ -1,4 +1,5 @@
-# sipmarray-interactive
-Dash app to run sipmarray.
+# ArrayMaker
 
 > Ricardo Peres, 14.01.2024
+
+Dash app to run ArrayMaker!
