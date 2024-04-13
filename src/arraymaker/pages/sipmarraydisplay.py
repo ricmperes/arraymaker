@@ -50,6 +50,7 @@ option_card = dbc.Card([
                 {'label': '6x6 mm2', 'value': '6x6'},
                 {'label': '3x3 mm2', 'value': '3x3'},
                 {'label': 'Digital SiPM modules', 'value': 'digital'},
+                {'label': '6x6 mm2 low dead space', 'value': 'low dead space'}
                 # Add more options as needed
             ],
             value='tile',  # Default value

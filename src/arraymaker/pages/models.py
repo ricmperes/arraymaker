@@ -98,6 +98,7 @@ options_sipm = html.Div([html.H5(
         {'label': '6x6 mm2', 'value': '6x6'},
         {'label': '3x3 mm2', 'value': '3x3'},
         {'label': 'Digital SiPM modules', 'value': 'digital'},
+        {'label': '6x6 mm2 low dead space', 'value': 'low dead space'}
     ],
     value='tile',  # Default value
     style={'width': '200px', 'marginLeft': '1rem',
