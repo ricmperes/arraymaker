@@ -216,7 +216,7 @@ option_card_sensor = dbc.Card([
                  children=[
                      html.Div(
                          id='text-custom-width-active',
-                         children=f'Packaging width active [mm]:',
+                         children=f'Width active area [mm]:',
                          style={'marginLeft': '10px', 'marginTop': '15px'}
                      ),
                      dcc.Input(
@@ -234,7 +234,7 @@ option_card_sensor = dbc.Card([
                  children=[
                      html.Div(
                          id='text-custom-height-active',
-                         children=f'Packaging height active [mm]:',
+                         children=f'Height active area [mm]:',
                          style={'marginLeft': '10px', 'marginTop': '15px'}
                      ),
                      dcc.Input(
