@@ -13,6 +13,14 @@ def mass_from_slpm(slpm):
     dens_std = 5.8980 #g/L
     return slpm * dens_std /1000 #kg
 
+@np.vectorize
+def slpm_from_mass(mass):
+    """Calculates the standard volumetric flow rate from mass flow in 
+    (mass in grams, flow in slpm)
+    """
+    dens_std = 5.8980
+    return mass / dens_std
+
 
 def parse_data(contents, filename):
     """Based on https://stackoverflow.com/questions/60223161/using-dash-

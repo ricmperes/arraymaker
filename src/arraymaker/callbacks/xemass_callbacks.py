@@ -2,11 +2,7 @@ import dash
 import plotly.graph_objects as go
 from dash.dependencies import Input, Output
 from dash.exceptions import PreventUpdate
-from pmtarray import PMTarray
 
-from arraymaker.utils.plotly_functions import (plot_circular_pmt_array,
-                                               plot_square_pmt_array)
-from arraymaker.utils.pmt_aux_functions import *
 from arraymaker.utils.xemass_functions import *
 
 def get_xemasscallbacks(app):
@@ -86,3 +82,21 @@ def get_xemasscallbacks(app):
             return fig
         else:
             return make_initial_mass_plot()
+        
+    @app.callback(
+        Output('gpm-text', 'children'),
+        [Input('slpm-value', 'value')]
+    )
+    def update_gpm_value(slpm_value):
+        gpm = mass_from_slpm(slpm_value)*1000
+        ans = f' {gpm:.2f}  gpm'
+        return ans
+    
+    @app.callback(
+        Output('slpm-text', 'children'),
+        [Input('gpm-value', 'value')]
+    )
+    def update_gpm_value(slpm_value):
+        slpm = slpm_from_mass(slpm_value)
+        ans = f' {slpm:.2f}  slpm'
+        return ans

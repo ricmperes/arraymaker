@@ -128,24 +128,66 @@ tab_flow = dbc.Row([
                    'margin-top': '0rem'})
                    ])
 
+flow_converter = dbc.Row([
+            html.H5("Flow converter",
+                             style={'margin-left': '1rem',
+                                    'margin-bottom': '0.5rem'},),
+            # slpm to gpm
+            html.Div(
+                [dcc.Input(
+                    id='slpm-value',
+                    type='number',
+                    value=0.0,
+                    debounce=True,
+                    style={'width': '4rem','marginLeft': '1rem', 
+                            'marginTop': '0.5rem'}),
+                html.Div('slpm = ', style = {'margin-left': '0.5rem'}),
+                html.Div(id = 'gpm-text'),], 
+                style = {'display': 'flex', 'margin-left': '1rem',
+                         'margin-top': '1rem',
+                         'align-items': 'center'}),
+            # gpm to slpm
+            html.Div(
+                [dcc.Input(
+                    id='gpm-value',
+                    type='number',
+                    value=0.0,
+                    debounce=True,
+                    style={'width': '4rem','marginLeft': '1rem', 
+                            'marginTop': '0.5rem'}),
+                html.Div('gpm = ', style = {'margin-left': '0.5rem'}),
+                html.Div(id = 'slpm-text'),], 
+                style = {'display': 'flex', 'margin-left': '1rem',
+                         'margin-bottom': '1rem', 
+                         'align-items': 'center'})
+        ])
+
+
+# xenon properties table
+xe_table_header = [
+    html.Thead(html.Tr([html.Th("Property"), html.Th("Value")]))
+]
+
+row1 = html.Tr([html.Td("Density at std (0 ºC, 1 bar)"), html.Td("5.8980 g/l")])
+row2 = html.Tr([html.Td("Density at 177 K, 2 bar"), html.Td("2.8609(57) g/ml")])
+row3 = html.Tr([html.Td("Triple point temp"), html.Td("161.38 K")])
+row4 = html.Tr([html.Td("Triple point press"), html.Td("0.816 bar")])
+
+table_body = [html.Tbody([row1, row2, row3, row4])]
+
+xe_properties_table = dbc.Table(xe_table_header + table_body, bordered=True)
+
 tab_calc = dbc.Row([
-    dbc.Col([  # left column
-        dbc.Row(dbc.Col([html.H5("Flow SLPM",
-                                 style={'margin-left': '1rem',
-                                        'margin-bottom': '1rem'},),
-                        dcc.Input(
-                            id='slpm-value',
-                            type='number',
-                            value=0.0,
-                            debounce=True,
-                            style={'width': '100px','marginLeft': '10px', 
-                                   'marginTop': '15px'}
-                                   ),
-                         ])),  # dropdown sensor model
-        dbc.Row(dbc.Col([]))],  # text properties of sensor
-            style={'margin-bottom': '2rem',
-                   'margin-top': '2rem'})
-])
+    dbc.Col(  # left column
+        flow_converter,style={'margin-bottom': '2rem',
+                  'margin-top': '2rem'}),
+    dbc.Col(  # left column
+        xe_properties_table,
+        style={'margin-bottom': '2rem',
+               'margin-top': '2rem'})
+        ])
+
+
 # Main layout
 layout = dbc.Container([
     navbar,
