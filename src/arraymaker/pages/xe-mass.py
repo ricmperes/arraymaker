@@ -122,7 +122,8 @@ tab_flow = dbc.Row([
     dbc.Col([  # left column
         dbc.Row([dbc.Col(upload_card,width={'size': 3, 'offset': 0}),
                  dbc.Col(plot_flow, width = 9)],
-                 style = {'height' : '30rem' })
+                 style = {'height' : '30rem' }),
+        
                  ],  # text properties of sensor
             style={'margin-bottom': '0rem',
                    'margin-top': '0rem'})
@@ -162,6 +163,43 @@ flow_converter = dbc.Row([
                          'align-items': 'center'})
         ])
 
+height_converter = dbc.Row([
+            html.H5("Height/mass converter",
+                             style={'margin-left': '1rem',
+                                    'margin-bottom': '0.5rem'},),
+            html.H6("Assumes 2bar @177K",
+                             style={'margin-left': '1rem',
+                                    'margin-bottom': '0.5rem'},),
+            # slpm to gpm
+            html.Div(
+                [dcc.Input(
+                    id='height-cylinder-value',
+                    type='number',
+                    value=0.0,
+                    debounce=True,
+                    style={'width': '4rem','marginLeft': '1rem', 
+                            'marginTop': '0.5rem'}),
+                html.Div('cm = ', style = {'margin-left': '0.5rem'}),
+                html.Div('',id = 'height-cylinder-text'),], 
+                style = {'display': 'flex', 'margin-left': '1rem',
+                         'margin-top': '1rem',
+                         'align-items': 'center'}),
+            # gpm to slpm
+            html.Div(
+                [dcc.Input(
+                    id='mass-cylinder-value',
+                    type='number',
+                    value=0.0,
+                    debounce=True,
+                    style={'width': '4rem','marginLeft': '1rem', 
+                            'marginTop': '0.5rem'}),
+                html.Div('kg = ', style = {'margin-left': '0.5rem'}),
+                html.Div('',id = 'mass-cylinder-text'),], 
+                style = {'display': 'flex', 'margin-left': '1rem',
+                         'margin-bottom': '1rem', 
+                         'align-items': 'center'})
+        ])
+
 
 # xenon properties table
 xe_table_header = [
@@ -178,9 +216,11 @@ table_body = [html.Tbody([row1, row2, row3, row4])]
 xe_properties_table = dbc.Table(xe_table_header + table_body, bordered=True)
 
 tab_calc = dbc.Row([
-    dbc.Col(  # left column
-        flow_converter,style={'margin-bottom': '2rem',
+    dbc.Col([  # left column
+        dbc.Row(flow_converter,style={'margin-bottom': '2rem',
                   'margin-top': '2rem'}),
+        dbc.Row(height_converter,style={'margin-bottom': '2rem',
+                  'margin-top': '2rem'})]),
     dbc.Col(  # left column
         xe_properties_table,
         style={'margin-bottom': '2rem',

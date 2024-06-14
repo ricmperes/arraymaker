@@ -100,3 +100,21 @@ def get_xemasscallbacks(app):
         slpm = slpm_from_mass(slpm_value)
         ans = f' {slpm:.2f}  slpm'
         return ans
+    
+    @app.callback(
+        Output('height-cylinder-text', 'children'),
+        [Input('height-cylinder-value', 'value')]
+    )
+    def update_height_cylinder_value(height):
+        mass = mass_cylinder(height)
+        ans = f' {mass:.3f}  kg'
+        return ans
+    
+    @app.callback(
+        Output('mass-cylinder-text', 'children'),
+        [Input('mass-cylinder-value', 'value')]
+    )
+    def update_mass_cylinder_value(mass):
+        height = height_cylinder(mass)
+        ans = f' {height:.3f}  cm'
+        return ans

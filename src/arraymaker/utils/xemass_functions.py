@@ -21,6 +21,15 @@ def slpm_from_mass(mass):
     dens_std = 5.8980
     return mass / dens_std
 
+def height_cylinder(mass): # in kg
+    dens = 2.8609 #g/cm^3
+    h = mass*1000/dens/np.pi/(25/2)**2 #cm
+    return h
+
+def mass_cylinder(height):
+    dens = 2.8609 #g/cm^3
+    m = height*dens*np.pi*(25/2)**2 /1000 #kg
+    return m
 
 def parse_data(contents, filename):
     """Based on https://stackoverflow.com/questions/60223161/using-dash-
