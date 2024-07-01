@@ -118,3 +118,14 @@ def get_xemasscallbacks(app):
         height = height_cylinder(mass)
         ans = f' {height:.3f}  cm'
         return ans
+    
+    @app.callback(
+        Output('drift-speed-text', 'children'),
+        Output('drift-time-text', 'children'),
+        [Input('drift-field-value', 'value')]
+    )
+    def update_drift_field(drift_field):
+        vel = model_velocity(drift_field)
+        time = model_drift_time(vel)
+        
+        return (f' {vel:.3f}  mm/us', f' {time:.3f}  us for 2.6 m drift')

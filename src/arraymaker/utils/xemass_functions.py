@@ -174,3 +174,29 @@ def make_mass_plot(df, fig = None):
 
     # Show plot
     return fig
+
+def model_velocity(drift_field):
+    '''
+    Drift velocity model from NEST, implemented by Yanina 
+    Biondi (https://github.com/YaniBion).
+    Given a drift_field values [V/cm] returns the expected electron drift 
+    velocity in LXe. In mm/us
+    '''
+    #par = [-3.1046, 27.037, -2.1668, 193.27, -4.8024, 646.04, 9.2471]
+    par = [-1.5000, 28.510, -.21948, 183.49, -1.4320, 1652.9, 2.884]
+    dv = (par[0] * np.exp(-drift_field/par[1]) + 
+            par[2] * np.exp(-drift_field/par[3]) + 
+            par[4] * np.exp(-drift_field/par[5]) +
+            par[6]) #mm/us
+    return dv
+
+def model_drift_time(vel):
+    """Return the expected drift time of an electron for the 2.6 m 
+    xenoscope given a certain drift field.
+
+    Args:
+        drift_field (float): drift field in V/cm
+    """
+    drift_time = 2600/vel #us
+
+    return drift_time

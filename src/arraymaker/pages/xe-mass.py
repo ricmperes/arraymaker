@@ -200,6 +200,28 @@ height_converter = dbc.Row([
                          'align-items': 'center'})
         ])
 
+drift_field = dbc.Row([
+            html.H5("Drift field calculator",
+                             style={'margin-left': '1rem',
+                                    'margin-bottom': '0.5rem'},),
+            # slpm to gpm
+            html.Div(
+                [dcc.Input(
+                    id='drift-field-value',
+                    type='number',
+                    value=0.0,
+                    debounce=True,
+                    style={'width': '4rem','marginLeft': '1rem', 
+                            'marginTop': '0.5rem'}),
+                html.Div('V/cm -> ', style = {'margin-left': '0.5rem'}),
+                html.Div('',id = 'drift-speed-text'),
+                html.Div('-> ', style = {'margin-left': '0.5rem'}),
+                html.Div('',id = 'drift-time-text'),], 
+                style = {'display': 'flex', 'margin-left': '1rem',
+                         'margin-top': '1rem',
+                         'align-items': 'center'}),
+            ])
+
 
 # xenon properties table
 xe_table_header = [
@@ -220,6 +242,8 @@ tab_calc = dbc.Row([
         dbc.Row(flow_converter,style={'margin-bottom': '2rem',
                   'margin-top': '2rem'}),
         dbc.Row(height_converter,style={'margin-bottom': '2rem',
+                  'margin-top': '2rem'}),
+        dbc.Row(drift_field,style={'margin-bottom': '2rem',
                   'margin-top': '2rem'})]),
     dbc.Col(  # left column
         xe_properties_table,
