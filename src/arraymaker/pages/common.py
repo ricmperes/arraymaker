@@ -20,6 +20,7 @@ def make_navbar():
                 nav=True,
                 label="Build array",
             ),
+            dbc.NavItem(dbc.NavLink("Xe-mass", href="/arraymaker/xe-mass")),
             dbc.NavItem(dbc.NavLink("About", href="/arraymaker/about")),
         ],
         brand="ArrayMaker",
