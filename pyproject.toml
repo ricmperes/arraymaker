@@ -8,13 +8,16 @@ version = "0.1"
 authors = [{ name="Ricardo Peres", email="rperes@physik.uzh.ch"},]
 description = "Dash display for sipmarray."
 readme = "README.md"
-requires-python = ">=3.7"
+requires-python = ">=3.8"
 dependencies = [
     "numpy",
     "matplotlib",
-    "sipmarray",
-    "pmtarray"
-    ]
+    "sipmarray == 1.2",
+    "pmtarray",
+    "plotly",
+    "dash == 2.18",
+    "dash_bootstrap_components",
+    "gunicorn"]
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: BSD License",
