@@ -5,26 +5,26 @@ from dash import html
 def make_navbar():
     return dbc.NavbarSimple(
         children=[
-            dbc.NavItem(dbc.NavLink("Home", href="/arraymaker/")),
+            dbc.NavItem(dbc.NavLink("Home", href="/")),
             dbc.NavItem(dbc.NavLink("Sensor types",
-                        href="/arraymaker/photosensors")),
+                        href="/photosensors")),
             dbc.DropdownMenu(
                 children=[
                     dbc.DropdownMenuItem(
-                        "SiPM array", href="/arraymaker/sipmarray"),
+                        "SiPM array", href="/sipmarray"),
                     dbc.DropdownMenuItem(
-                        "PMT array", href="/arraymaker/pmtarray"),
+                        "PMT array", href="/pmtarray"),
                     dbc.DropdownMenuItem(
-                        "Custom sensor array", href="/arraymaker/customarray"),
+                        "Custom sensor array", href="/customarray"),
                 ],
                 nav=True,
                 label="Build array",
             ),
-            dbc.NavItem(dbc.NavLink("Xe-mass", href="/arraymaker/xe-mass")),
-            dbc.NavItem(dbc.NavLink("About", href="/arraymaker/about")),
+            dbc.NavItem(dbc.NavLink("Xe-mass", href="/xe-mass")),
+            dbc.NavItem(dbc.NavLink("About", href="/about")),
         ],
         brand="ArrayMaker",
-        brand_href="/arraymaker/",
+        brand_href="/",
         sticky="top",
         color="primary",
         dark=True,

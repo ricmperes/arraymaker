@@ -14,16 +14,16 @@ width_picture = '27rem'
 
 picture_carousel = dbc.Carousel(
     items=[
-        {"key": "1", "src": "/arraymaker/assets/xenoscope1.jpg",
+        {"key": "1", "src": "/assets/xenoscope1.jpg",
          "img_style": {'height': height_of_page, 'width': width_picture,
                        "object-fit": "cover", 'align-items': 'center'}},
-        {"key": "2", "src": "/arraymaker/assets/xenoscope2.jpg",
+        {"key": "2", "src": "/assets/xenoscope2.jpg",
          "img_style": {'height': height_of_page, 'width': width_picture,
                        "object-fit": "cover"}},
-        {"key": "3", "src": "/arraymaker/assets/lars1.jpg",
+        {"key": "3", "src": "/assets/lars1.jpg",
          "img_style": {'height': height_of_page, 'width': width_picture,
                        "object-fit": "cover"}},
-        {"key": "4", "src": "/arraymaker/assets/lars2.jpg",
+        {"key": "4", "src": "/assets/lars2.jpg",
          "img_style": {'height': height_of_page, 'width': width_picture,
                        "object-fit": "cover"}},
     ],
@@ -62,7 +62,7 @@ Picture credits:
   * SiPM array of Xenoscope: LBG
                           
 ArrayMaker code and layout by [Ricardo Peres](https://ricmperes.github.io/). 
-Available open-source on [GitHub](https://github.com/ricmperes/arraymaker).
+Available open-source on [GitHub](https://github.com/ricmperes).
 ''',
                           style={'margin-top': '2rem'})
 
