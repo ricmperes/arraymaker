@@ -25,7 +25,7 @@ card_sensors = dbc.Card([
                     className="card-text",
                 ),
                 dbc.Button("Sensor types", color="primary",
-                           href="/arraymaker/photosensors"),
+                           href="/photosensors"),
 
             ]),
             style={"height": "100%", "display": "flex",
@@ -52,7 +52,7 @@ card_sipms = dbc.Card([
                     className="card-text",
                 ),
                 dbc.Button("SiPM ArrayMaker", color="primary",
-                           href="/arraymaker/sipmarray"),
+                           href="/sipmarray"),
 
             ]),
             style={"height": "100%", "display": "flex",
@@ -79,7 +79,7 @@ card_pmts = dbc.Card([
                     className="card-text",
                 ),
                 dbc.Button("PMT ArrayMaker", color="primary",
-                           href="/arraymaker/pmtarray"),
+                           href="/pmtarray"),
 
             ]),
             style={"height": "100%", "display": "flex",
