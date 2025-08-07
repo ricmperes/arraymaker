@@ -12,7 +12,7 @@ footer = make_footer()
 card_sensors = dbc.Card([
     dbc.Row([
         dbc.Col(
-            dbc.CardImg(src="/arraymaker/assets/vuv4quad.jpg", top=True,
+            dbc.CardImg(src="/assets/vuv4quad.jpg", top=True,
                         className="card-img-top overflow-hidden",
                         style={'height': '100%', "object-fit": "cover"}),
 
@@ -39,7 +39,7 @@ card_sensors = dbc.Card([
 card_sipms = dbc.Card([
     dbc.Row([
         dbc.Col(
-            dbc.CardImg(src="/arraymaker/assets/sipmarray_small.jpg", top=True,
+            dbc.CardImg(src="/assets/sipmarray_small.jpg", top=True,
                         className="card-img-top overflow-hidden",
                         style={'height': '100%', "object-fit": "cover"}),
 
@@ -66,7 +66,7 @@ card_sipms = dbc.Card([
 card_pmts = dbc.Card([
     dbc.Row([
         dbc.Col(
-            dbc.CardImg(src="/arraymaker/assets/pmts_zoom_small.JPG", top=True,
+            dbc.CardImg(src="/assets/pmts_zoom_small.JPG", top=True,
                         className="card-img-top overflow-hidden",
                         style={'height': '100%', "object-fit": "cover"}),
 
